@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A personal, interactive guide to Duchenne muscular dystrophy, dystrophin, and everyday life with DMD.">
+<title>DMD, Explained — A Personal Guide</title>
+<style>
+:root{--ink:#15243b;--muted:#3f5067;--blue:#1756a2;--blue2:#eaf2ff;--violet:#7652d6;--teal:#087f83;--coral:#d94e55;--gold:#b97817;--green:#26734a;--paper:#f7f9fc;--line:#dce4ef;--white:#fff;--shadow:0 16px 44px rgba(24,48,83,.09)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:#1458a6;text-decoration-thickness:1px;text-underline-offset:3px}a:hover{color:#0b3470}
+button{font:inherit;cursor:pointer}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
+header{background:radial-gradient(circle at 85% 15%,#3778c7 0,transparent 28%),linear-gradient(120deg,#102b52,#174e91 65%,#0c6e7d);color:#fff;padding:26px 0 78px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:20px}.brand{font-weight:800;letter-spacing:.04em;color:#fff;text-decoration:none}.navlinks{display:flex;gap:18px;flex-wrap:wrap}.navlinks a{color:#e7f0ff;text-decoration:none;font-size:.9rem}
+.hero{padding:74px 0 15px;max-width:820px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.76rem;font-weight:800;color:#a9d9ff}.hero h1{font-size:clamp(2.5rem,6vw,4.9rem);line-height:1.02;letter-spacing:-.055em;margin:15px 0 22px}.hero p{font-size:1.17rem;color:#e1edff;max-width:710px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{border:0;border-radius:999px;padding:12px 20px;font-weight:750;text-decoration:none;display:inline-flex;align-items:center;gap:8px}.btn.light{background:#fff;color:#173c70}.btn.ghost{border:1px solid #91b8e6;color:white;background:#ffffff10}
+main{position:relative}.intro-strip{background:white;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:18px;padding:20px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.stat{padding:5px 12px;border-left:3px solid #c8dafa}.stat strong{display:block;font-size:1.35rem;color:var(--blue)}.stat span{font-size:.9rem;color:var(--muted)}
+section{padding:74px 0 0;scroll-margin-top:24px}.section-head{max-width:760px;margin-bottom:28px}.kicker{color:var(--teal);font-weight:800;text-transform:uppercase;letter-spacing:.13em;font-size:.75rem}.section-head h2{font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-.04em;margin:8px 0 12px}.section-head p{color:var(--muted);font-size:1.05rem;margin:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}.card{background:white;border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 8px 26px rgba(24,48,83,.045)}.card h3{margin:0 0 10px;font-size:1.25rem}.card p:last-child{margin-bottom:0}.muted{color:var(--muted)}.visual{background:linear-gradient(145deg,#f1f6ff,#fff);border-radius:16px;padding:14px;overflow:hidden}.visual svg{display:block;width:100%;height:auto}
+.callout{border-left:4px solid var(--teal);padding:14px 18px;background:#eaf7f6;border-radius:0 12px 12px 0;margin:18px 0}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tab{border:1px solid var(--line);border-radius:999px;background:#fff;padding:9px 15px;color:var(--muted);font-weight:700}.tab[aria-selected="true"]{background:var(--blue);color:white;border-color:var(--blue)}
+.panel{display:none}.panel.active{display:block}.diagram-shell{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:var(--shadow)}.diagram-title{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}.diagram-title h3{margin:0}.hint{font-size:.86rem;color:var(--muted)}
+.iso-row{cursor:pointer;outline:none}.iso-row rect.rowbg{fill:#f8faff;stroke:#d9e4f2}.iso-row:hover rect.rowbg,.iso-row:focus rect.rowbg,.iso-row.selected rect.rowbg{stroke:#2868b4;stroke-width:2;fill:#edf5ff}.iso-row text{font-family:inherit;fill:#1a2c47}.iso-row .name{font-weight:800;font-size:15px}.iso-row .detail{font-size:11px;fill:#5d6d83}.iso-row .bar{fill:#2384d8}.iso-row .del{fill:#ffe4e4;stroke:#d94e55;stroke-width:1.5;stroke-dasharray:4 3}.iso-row .preserved{fill:#d8f2e1;stroke:#26935b}.iso-row .loss{fill:#ffe1e3;stroke:#d94e55}
+#isoInfo{margin-top:14px;padding:15px 18px;border-radius:14px;background:#edf4ff;color:#243c5d;min-height:70px}
+figure{margin:0}figcaption{font-size:.85rem;color:var(--muted);padding:10px 3px 0}
+.image-ref{width:100%;height:auto;border-radius:14px;border:1px solid var(--line);display:block}
+.pillrow{display:flex;gap:8px;flex-wrap:wrap}.pill{background:#eef3fb;color:#345273;border-radius:999px;padding:6px 11px;font-size:.82rem;font-weight:700}
+.timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px}.step b{display:block;color:var(--blue);font-size:1.05rem;margin-bottom:5px}.step span{font-size:.9rem;color:var(--muted)}
+.life-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.life-card{display:flex;gap:16px;align-items:flex-start}.icon{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#eaf2ff;color:var(--blue);font-size:1.35rem;flex:none}.life-card h3{margin:0 0 5px}.life-card p{margin:0;color:#34465e}
+.quote{font-size:1.4rem;line-height:1.45;letter-spacing:-.02em;color:#183b68;padding:26px;border-radius:18px;background:linear-gradient(120deg,#e9f1ff,#eef9f7);border:1px solid #d5e5f5}
+.resources{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.resource{display:block;background:white;border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none}.resource strong{display:block;color:var(--ink)}.resource span{font-size:.88rem;color:var(--muted)}
+footer{margin-top:78px;background:#122b4c;color:#d9e6f8;padding:32px 0}.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.small{font-size:.84rem;color:#aebfd5}
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}.reveal.visible{opacity:1;transform:none}
+@media(max-width:760px){.navlinks{display:none}.intro-strip{grid-template-columns:1fr}.grid2,.life-grid,.resources{grid-template-columns:1fr}.timeline{grid-template-columns:repeat(2,1fr)}.hero{padding-top:54px}.card{padding:19px}.diagram-shell{padding:12px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
+.toc{display:block;column-count:3;column-gap:10px;margin-top:14px;max-width:860px}.toc-item{break-inside:avoid;margin-bottom:10px;display:block;border:1px solid rgba(145,184,230,.55);border-radius:12px;background:rgba(255,255,255,.08);padding:10px 14px}.toc a{color:#fff;text-decoration:none}.toc-main{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.98rem}.toc-main span{font-size:.75rem;font-weight:800;letter-spacing:.1em;color:#a9d9ff}.toc-sub{display:block;font-size:.86rem;color:#d4e4fa!important;padding:3px 0 0 30px}.toc a:hover,.toc a:focus{text-decoration:underline}.toc-sub2{padding-left:44px!important;font-size:.8rem!important;color:#b9d0ee!important}.life-card h3.big-sub{font-size:1.5rem;letter-spacing:-.02em;margin-bottom:10px}@media(max-width:760px){.toc{column-count:2}}@media(max-width:480px){.toc{column-count:1}}
+.mini-list{padding:18px 20px}.mini-list h3{font-size:1.02rem;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:6px}.mini-list p{font-size:.92rem;color:var(--muted)}.genre-head{font-size:1.35rem;margin:0 0 14px}@media(max-width:760px){#movies .card[style*="grid-template-columns"],.side-visual{grid-template-columns:1fr!important}}
+.vtl{list-style:none;margin:14px 0 0;padding:0;position:relative}.vtl:before{content:"";position:absolute;left:150px;top:6px;bottom:6px;width:2px;background:var(--line)}.vtl-item{display:grid;grid-template-columns:136px 1fr;gap:30px;padding:10px 0;position:relative}.vtl-item:before{content:"";position:absolute;left:145px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--blue);border:2px solid #fff;box-shadow:0 0 0 1px var(--blue)}.vtl-item.exp:before{background:var(--teal);box-shadow:0 0 0 1px var(--teal)}.vtl-date{font-weight:750;color:var(--blue);font-size:.92rem;text-align:right;padding-top:2px}.vtl-item.exp .vtl-date{color:var(--teal)}.vtl-body strong{display:block;font-size:1.02rem}.vtl-body p{margin:3px 0 0;color:var(--muted);font-size:.94rem}.vtl-tag{display:inline-block;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:2px}.vtl-item.exp .vtl-tag{color:var(--teal)}@media(max-width:600px){.vtl:before{left:6px}.vtl-item{grid-template-columns:1fr;gap:2px;padding-left:28px}.vtl-item:before{left:1px}.vtl-date{text-align:left}}
+</style>
+</head>
+<body>
+<header>
+ <div class="wrap">
+  <nav><a class="brand" href="#top">DMD, EXPLAINED</a><div class="navlinks"><a href="#biology">The biology</a><a href="#isoforms">My mutation</a><a href="#my-life">My health</a><a href="#family-life">Daily life</a><a href="#about-me">About me</a><a href="#interests">My interests</a><a href="#movies">Movies &amp; music</a><a href="#resources">Learn more</a></div></nav>
+  <div class="hero" id="top">
+   <div class="eyebrow">A personal guide · Science and lived experience</div>
+   <h1>Understanding DMD.<br>Understanding my life.</h1>
+   <p>Duchenne muscular dystrophy is part of my life, but it isn't all of it. This page explains what happens biologically, how my particular mutation fits in, and what the condition means in everyday situations.</p>
+   <p style="font-size:1rem;margin:24px 0 0;color:#c9dcf5">Feel free to jump to whichever part interests you most:</p>
+   <nav class="toc" aria-label="Table of contents"><div class="toc-item"><a class="toc-main" href="#biology"><span>01</span>The biology</a></div><div class="toc-item"><a class="toc-main" href="#isoforms"><span>02</span>My genetic variant</a></div><div class="toc-item"><a class="toc-main" href="#my-life"><span>03</span>Physical effects</a></div><div class="toc-item"><a class="toc-main" href="#family-life"><span>04</span>Family, accessibility, and independence</a><a class="toc-sub" href="#family-caregiving">Family and caregiving</a><a class="toc-sub" href="#social-access">Social activities and accessibility</a><a class="toc-sub" href="#travel">Travel</a><a class="toc-sub" href="#independence">Staying as independent as possible</a></div><div class="toc-item"><a class="toc-main" href="#about-me"><span>05</span>Beyond the logistics</a><a class="toc-sub" href="#interests">Exploring the world</a><a class="toc-sub" href="#movies">On screen</a><a class="toc-sub" href="#books">What I read</a><a class="toc-sub" href="#music">What I listen to</a><a class="toc-sub" href="#youtube">Nerd stuff</a></div><div class="toc-item"><a class="toc-main" href="#perspective"><span>06</span>Perspective</a></div><div class="toc-item"><a class="toc-main" href="#resources"><span>07</span>Further reading</a></div></nav>
+  </div>
+ </div>
+</header>
+<main class="wrap">
+ <section id="biology" class="reveal">
+  <div class="section-head"><div class="kicker">01 · The biology</div><h2>What DMD is</h2><p>DMD is a genetic condition caused by changes in the dystrophin gene. The protein it encodes helps protect muscle fibers from damage during contraction.</p></div>
+  <div class="grid2">
+   <article class="card">
+    <h3>What dystrophin normally does</h3>
+    <p>Dystrophin acts like a structural link inside a muscle cell, helping connect the cell's internal framework to supporting proteins at the cell membrane. This helps stabilize the membrane when a muscle contracts.</p>
+    <div class="visual">
+     <svg viewBox="0 0 520 245" role="img" aria-label="Simplified illustration of dystrophin linking the inside of a muscle fiber to the membrane and surrounding support">
+      <defs><linearGradient id="cell" x2="0" y2="1"><stop stop-color="#d9edff"/><stop offset="1" stop-color="#b5d8f4"/></linearGradient></defs>
+      <rect x="20" y="35" width="480" height="170" rx="72" fill="url(#cell)" stroke="#3985c5" stroke-width="4"/>
+      <path d="M34 80 Q90 55 145 80 T255 80 T365 80 T486 80 M34 160 Q90 185 145 160 T255 160 T365 160 T486 160" fill="none" stroke="#77b1df" stroke-width="3"/>
+      <path d="M95 118 L160 118 L184 93 L208 143 L232 93 L256 143 L280 118 L340 118" stroke="#1766aa" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="335" y="98" width="14" height="40" rx="5" fill="#168b82"/><path d="M349 118 L386 118" stroke="#168b82" stroke-width="6"/>
+      <g fill="#d18b25"><circle cx="397" cy="118" r="9"/><circle cx="420" cy="118" r="9"/><circle cx="443" cy="118" r="9"/></g>
+      <g font-size="12" fill="#193d62" font-weight="700"><text x="65" y="25">Inside the muscle fiber</text><text x="330" y="25">Cell membrane</text><text x="367" y="178">Support outside</text><text x="190" y="175">Dystrophin</text></g>
+      <path d="M230 165 L230 145" stroke="#1766aa" stroke-width="1.5"/>
+     </svg>
+    </div>
+    <p class="muted">Conceptual illustration, not to scale. Dystrophin is one part of a larger protein complex.</p>
+   </article>
+   <article class="card">
+    <h3>What happens in DMD</h3>
+    <p>When functional dystrophin is missing or severely disrupted, muscle fibers are more vulnerable to injury as they contract and relax. Repeated damage contributes to progressive muscle weakness and the replacement of muscle tissue with fat and connective tissue.</p>
+    <div class="visual">
+     <svg viewBox="0 0 520 245" role="img" aria-label="Comparison of a stable muscle fiber and a damaged muscle fiber">
+      <rect x="16" y="35" width="226" height="172" rx="22" fill="#e7f5ef" stroke="#8ac9a6"/><rect x="278" y="35" width="226" height="172" rx="22" fill="#fff0ef" stroke="#e4a0a0"/>
+      <text x="129" y="62" text-anchor="middle" font-size="15" font-weight="800" fill="#216744">With dystrophin</text><text x="391" y="62" text-anchor="middle" font-size="15" font-weight="800" fill="#a43c43">Without functional dystrophin</text>
+      <g fill="#75b9a0" stroke="#287d60" stroke-width="2"><rect x="43" y="91" width="172" height="76" rx="34"/><path d="M57 111H200M57 130H200M57 149H200" stroke="#d6f1e4" stroke-width="4"/></g>
+      <g fill="#e7a0a0" stroke="#b84b53" stroke-width="2"><path d="M303 108 Q320 83 343 103 L360 94 L377 112 L396 91 L416 111 L440 96 L479 115 L470 155 Q449 176 426 155 L408 167 L388 148 L366 166 L347 147 L325 162 L303 145Z"/><path d="M318 126L349 116M382 125L405 114M433 145L463 130" stroke="#fff" stroke-width="4"/></g>
+      <g font-size="11" fill="#52677d"><text x="129" y="190" text-anchor="middle">More stable membrane</text><text x="391" y="190" text-anchor="middle">More vulnerable to injury</text></g>
+     </svg>
+    </div>
+   </article>
+  </div>
+  <div class="callout"><strong>The key idea:</strong> DMD is not simply a problem with muscles being “weak.” It is a problem with the protection and maintenance of muscle fibers over time.</div>
+ </section>
+
+ <section id="isoforms" class="reveal">
+  <div class="section-head"><div class="kicker">02 · My genetic variant</div><h2>My exon 45–50 deletion</h2><p>My DMD gene is missing exons 45 through 50. This deletion disrupts the full-length form of dystrophin that skeletal and heart muscle depend on.</p></div>
+  <div class="diagram-shell">
+   <div class="diagram-title"><h3>Explore the exon 45–50 deletion</h3><span class="hint">Select an isoform row to learn more</span></div>
+   <div class="visual" style="margin-top:14px">
+    <svg viewBox="0 0 920 470" role="img" aria-label="Schematic of dystrophin isoforms and the exon 45 to 50 deletion">
+     <text x="18" y="25" font-size="12" fill="#65758a">5′ end</text><text x="873" y="25" font-size="12" fill="#65758a">3′ end</text>
+     <rect x="70" y="42" width="780" height="36" rx="8" fill="#dceafa" stroke="#8baed8"/>
+     <rect x="70" y="42" width="395" height="36" rx="7" fill="#2787d5"/><rect x="465" y="42" width="115" height="36" fill="#ffe0e0" stroke="#d94e55" stroke-dasharray="5 3"/><rect x="580" y="42" width="270" height="36" rx="7" fill="#2787d5"/>
+     <text x="268" y="65" text-anchor="middle" font-size="14" fill="white" font-weight="700">Exons 1–44</text><text x="522" y="65" text-anchor="middle" font-size="13" fill="#a52f38" font-weight="800">45–50 deleted</text><text x="715" y="65" text-anchor="middle" font-size="14" fill="white" font-weight="700">Exons 51–79</text>
+     <g class="iso-row selected" tabindex="0" role="button" aria-label="Dp427, affected" data-key="dp427">
+      <rect class="rowbg" x="12" y="98" width="896" height="70" rx="12"/>
+      <text class="name" x="28" y="124">Dp427</text><text class="detail" x="28" y="143">full-length</text>
+      <rect x="180" y="122" width="240" height="18" rx="5" class="bar"/><rect x="420" y="122" width="75" height="18" class="del"/><rect x="495" y="122" width="235" height="18" rx="5" class="bar"/>
+      <path d="M444 118l28 26M472 118l-28 26" stroke="#d94e55" stroke-width="3"/><text x="760" y="124" class="detail">Disrupted</text><text x="760" y="140" font-size="11" fill="#b33">Frameshift and</text><text x="760" y="155" font-size="11" fill="#b33">premature stop</text>
+     </g>
+     <g class="iso-row" tabindex="0" role="button" aria-label="Dp260, affected" data-key="dp260">
+      <rect class="rowbg" x="12" y="178" width="896" height="70" rx="12"/>
+      <text class="name" x="28" y="204">Dp260</text><text class="detail" x="28" y="223">retina / heart context</text>
+      <rect x="180" y="202" width="240" height="18" rx="5" class="bar"/><rect x="420" y="202" width="75" height="18" class="del"/><rect x="495" y="202" width="235" height="18" rx="5" class="bar"/>
+      <path d="M444 198l28 26M472 198l-28 26" stroke="#d94e55" stroke-width="3"/><text x="760" y="214" class="detail">Disrupted</text>
+     </g>
+     <g class="iso-row" tabindex="0" role="button" aria-label="Dp140, potentially preserved" data-key="dp140">
+      <rect class="rowbg" x="12" y="258" width="896" height="70" rx="12"/>
+      <text class="name" x="28" y="284">Dp140</text><text class="detail" x="28" y="303">starts near exon 44</text>
+      <rect x="180" y="282" width="315" height="18" rx="5" fill="#eadfff" stroke="#9876dc"/><rect x="495" y="282" width="235" height="18" rx="5" class="bar"/>
+      <text x="760" y="294" class="detail">Potentially preserved</text>
+     </g>
+     <g class="iso-row" tabindex="0" role="button" aria-label="Dp116, likely preserved" data-key="dp116">
+      <rect class="rowbg" x="12" y="338" width="896" height="55" rx="12"/>
+      <text class="name" x="28" y="370">Dp116</text><rect x="180" y="357" width="18" height="18" rx="3" class="preserved"/><rect x="255" y="357" width="475" height="18" rx="5" class="bar"/>
+      <text x="760" y="370" class="detail">Likely preserved</text>
+     </g>
+     <g class="iso-row" tabindex="0" role="button" aria-label="Dp71, likely preserved" data-key="dp71">
+      <rect class="rowbg" x="12" y="403" width="896" height="55" rx="12"/>
+      <text class="name" x="28" y="435">Dp71</text><rect x="180" y="422" width="18" height="18" rx="3" fill="#f5c45e" stroke="#b97817"/><rect x="255" y="422" width="475" height="18" rx="5" class="bar"/>
+      <text x="760" y="435" class="detail">Likely preserved</text>
+     </g>
+    </svg>
+   </div>
+   <div id="isoInfo" aria-live="polite"><strong>Dp427 — affected.</strong> The exon 45–50 deletion disrupts the full-length coding sequence. The altered reading frame is expected to introduce a premature stop downstream.</div>
+   <p class="hint">Schematic only — not a base-pair-accurate gene map. The diagram reflects the working interpretation of your reported deletion and isoform structure; actual transcript effects depend on transcript annotation and splicing.</p>
+  </div>
+  <article class="card" style="margin-top:20px"><h3>Why this matters for muscle</h3><p>Dp427 is the full-length dystrophin made in skeletal and heart muscle. Because the deletion shifts the gene's reading frame, my muscle cells can't produce working dystrophin. That leads to the gradual muscle damage described above, and it's also why DMD affects the heart.</p></article>
+ </section>
+
+ <section id="my-life" class="reveal">
+  <div class="section-head"><div class="kicker">03 · Physical effects</div><h2>How DMD affects my body</h2><p>The biology is important, but the day-to-day experience is more personal. These are the ways the condition shows up in my life.</p></div>
+  <div class="grid2">
+   <article class="card">
+    <h3>Mobility and strength</h3>
+    <p>When I was about 6 to 8 years old, I started walking on my toes and getting up off the floor in a different way after falling. On a trip to India (my last trip to India, in 2009), a doctor noticed how I was walking and said we should test for muscular dystrophy. We did, and I was diagnosed around age 9.</p>
+    <p>Over time, walking long distances and climbing stairs slowly got harder, but I was still able to play soccer and do karate for a while. By 5th and 6th grade (ages 10 to 11), I needed a wheelchair for long distances. Eventually I couldn't stand at all, and in 7th grade (around ages 12 to 13), I started using a power wheelchair full-time.</p>
+    <div class="timeline" style="margin:4px 0 18px"><div class="step"><b>Ages 6–8</b><span>Toe walking and getting up from the floor differently</span></div><div class="step"><b>Age 9</b><span>Diagnosed after a doctor in India suggested testing</span></div><div class="step"><b>Ages 10–11</b><span>Wheelchair for long distances</span></div><div class="step"><b>Ages 12–13</b><span>Power wheelchair full-time</span></div></div>
+    <p>At this point, I can still move my lower legs somewhat, but I can't lift my legs up. I can move my arms and hands fairly well, but I have limited ability to raise my arms.</p>
+    <p>I swam regularly until I was about 19, since the water helped support my weight and made it easier to move. Now, getting into and out of pools has become difficult enough that I no longer swim.</p>
+    <div class="pillrow"><span class="pill">Power wheelchair</span><span class="pill">Arm and hand movement</span><span class="pill">Limited leg lifting</span></div>
+   </article>
+   <article class="card">
+    <h3>Heart and breathing</h3>
+    <p>It's also affected my heart function. A typical healthy ejection fraction is around 55–70%, while mine is currently around 35%. My lung capacity is reduced too, although it isn't very noticeable in everyday conversation at this stage. I sometimes need to take breaths a little more frequently when speaking. Reduced respiratory strength also makes it harder to project my voice, so I sometimes have to speak louder to compensate.</p>
+    <div class="visual">
+     <svg viewBox="0 0 480 150" role="img" aria-label="Illustrative comparison of ejection fraction values, with 35 percent for the author and a typical reference range of 55 to 70 percent">
+      <text x="8" y="24" font-size="13" fill="#334b68" font-weight="700">Ejection fraction (approximate)</text>
+      <rect x="8" y="43" width="450" height="20" rx="10" fill="#e6ebf2"/><rect x="8" y="43" width="157.5" height="20" rx="10" fill="#e26b6b"/><rect x="247.5" y="43" width="67.5" height="20" rx="4" fill="#6cb98c"/>
+      <path d="M165.5 37V72" stroke="#c34c4c" stroke-width="2"/><text x="165" y="91" text-anchor="middle" font-size="12" fill="#a43c43" font-weight="700">~35%</text>
+      <text x="281" y="91" text-anchor="middle" font-size="12" fill="#28734a" font-weight="700">55–70%</text>
+      <text x="8" y="125" font-size="11" fill="#6b7a8d">Illustrative values from my description, not a diagnostic chart.</text>
+     </svg>
+    </div>
+   </article>
+  </div>
+ </section>
+
+ <section id="family-life" class="reveal">
+  <div class="section-head"><div class="kicker">04 · Family, accessibility, and independence</div><h2>How DMD shapes my day-to-day life</h2></div>
+  <div class="life-grid" style="grid-template-columns:1fr">
+   <article class="card life-card" id="family-caregiving" style="scroll-margin-top:24px"><div class="icon">⌂</div><div><h3 class="big-sub">Family and caregiving</h3><p>My parents have been my primary caregivers throughout my life. My whole family moved to Southern California in 2019 so they could support me while I was at Caltech. Since returning to the Bay Area, we've hired caregivers too, but my parents remain my main support system. These days I usually need special equipment to lift me, and I need help with a lot of daily tasks, especially my morning and bedtime routines, hygiene, and using the restroom. My parents and caregivers share that help. Most of these tasks are easier with two people, though they're possible with one, so our caregivers are mainly there as an extra pair of hands so that both of my parents don't always have to help.</p><p style="margin-top:10px">Because my morning routine takes longer than most people's, I usually wake up early and go to bed on time (except when there's something late on the weekend). It has become second nature.</p><p style="margin-top:10px">After my PhD, I'd like to live more independently with a caregiver.</p></div></article>
+   <article class="card life-card" id="social-access" style="scroll-margin-top:24px"><div class="icon">♿</div><div><h3 class="big-sub">Social activities and accessibility</h3><p>It also affects how I plan social activities. Even going to a restaurant takes some planning to make sure it's wheelchair accessible, with enough room to maneuver, tables at the right height, and accessible restrooms. Concerts and other events take planning too. I have to consider things like wheelchair-accessible seating, how easily I can get around the venue, and whether there are accessible restrooms. We have an accessible car, so getting around locally is manageable.</p><p>I still enjoy going out to concerts and movies with friends, and those are generally manageable since they're usually not too far away and don't require too much planning. But I'm also quite comfortable keeping myself busy at home. I enjoy watching movies and YouTube, reading, and doing things indoors. Sometimes I'd rather hang out with friends locally or at home and do something indoors. Going out can take more effort because of all the accessibility planning, so it sometimes comes down to how interested I am in doing something versus how much effort it'll take to arrange.</p><div class="callout" style="margin-bottom:0"><strong>Accessible on paper isn't always accessible to me.</strong> A building can meet accessibility requirements and still be hard for me to get around in. Because my arms are weak and I can't raise them very far, I may not be able to reach the push button that opens an automatic door if it's mounted too high. Elevators can have the same problem. A building having an elevator doesn't help much if I can't reach the buttons to call it or pick a floor. Details like these are part of why I check places ahead of time rather than assuming that "accessible" means accessible for me.</div></div></article>
+   <article class="card life-card" id="travel" style="scroll-margin-top:24px"><div class="icon">↗</div><div><h3 class="big-sub">Travel</h3><p>Travel is a little more complicated. I generally haven't flown since I started using a power wheelchair full-time. <strong>You have to transfer out of your wheelchair</strong> and have it transported in the cargo hold, which creates a risk of damage. My family and I haven't really wanted to take that risk.</p><p>Air travel was still possible in theory until I started using a power wheelchair full-time at 13. But my grandparents and my parents' cousins would visit us from India, so we never really needed to travel there. I haven't been to India since 2009, but we've still been able to see each other over the years. And now, with WhatsApp and video calls, the distance feels much smaller.</p><p>Road trips are possible since I can travel in our accessible car, but we have to plan around accessible hotels and restroom stops. We've driven to LA a few times. Driving within California is generally more feasible, but it still requires planning.</p><p>Overall, I don't feel that I'm missing out by not traveling much. I'm happy spending time with friends locally.</p></div></article>
+   <article class="card life-card" id="independence" style="scroll-margin-top:24px"><div class="icon">✋</div><div><h3 class="big-sub">Staying as independent as possible</h3><p>In general, I try to be as independent as possible and use my own muscles whenever I can, which helps preserve strength and flexibility. For example, I often sing and play the piano and harmonica. They're hobbies I genuinely enjoy, and they're also good exercise for my lungs and fine motor control, helping me preserve that function for as long as possible.</p></div></article>
+  </div>
+   <div class="quote" style="margin-top:28px;border-left:5px solid var(--teal);font-size:1.12rem"><div class="kicker" style="margin-bottom:8px">How it shapes me</div>Because of all these experiences, I've become someone who is empathetic, plans ahead, stays organized, and pays attention to details. In a way, DMD has made me better at these things, and they're skills that help me well beyond managing my condition.</div>
+ </section>
+
+ <section id="about-me" class="reveal">
+  <div class="section-head"><div class="kicker">05 · Beyond the logistics</div><h2>Who I am</h2><p>DMD shapes a lot of the logistics, but it isn't what defines my personality or how I spend my time.</p></div>
+  <div class="grid2">
+   <article class="card" style="grid-column:1/-1">
+    <h3>Social and curious</h3>
+    <p>I consider myself a very social person and enjoy having conversations with my friends about almost anything. I have a positive attitude and a good sense of humor, and I tend to make (often cringeworthy) puns and jokes. I'm very close with my friends from high school and a few from Caltech (Go Beavers! 🦫). I'm also a nerd at heart, and I'm just as happy spending time on more educational pursuits, such as reading, watching videos, and learning about topics I'm curious about.</p>
+   </article>
+  </div>
+  <article class="card" style="margin-top:22px">
+   <h3>Hobbies</h3>
+   <p>Outside of work, I enjoy making music. I like singing and playing the piano and harmonica, often along to the kinds of songs in the Music section below.</p>
+   <div class="pillrow" style="margin-top:14px"><span class="pill">Singing</span><span class="pill">Piano</span><span class="pill">Harmonica</span></div>
+  </article>
+  <article class="card" style="margin-top:22px">
+   <h3>What I work on</h3>
+   <p>I'm currently a PhD student in Biomedical Data Science at Stanford, in Nima Aghaeepour's lab, where I build machine learning models for health data. My main project looks at how diet and environmental exposures affect human health. A big part of it uses RABIT, a model developed in our lab that estimates what thousands of blood proteins would look like for a patient using only their electronic health records. I have also been a teaching assistant for Russ Altman's computational molecular biology course, BMI 214, for two years.</p>
+   <p>Before Stanford, I studied computer science with a minor in biology at Caltech and worked across several areas of computational biology, which are outlined in the timeline below. That same curiosity shapes much of what I do outside of work as well. I enjoy understanding how things work.</p>
+   <div class="pillrow" style="margin-top:14px"><span class="pill">Machine learning</span><span class="pill">Computational biology</span><span class="pill">Proteomics</span><span class="pill">Diet and environment</span></div>
+  </article>
+  <article class="card" style="margin-top:22px">
+   <h3>Education and experience</h3>
+   <ol class="vtl"><li class="vtl-item edu"><div class="vtl-date">2012–2015</div><div class="vtl-body"><span class="vtl-tag">Education</span><strong>Jane Lathrop Stanford Middle School</strong><p>Math Madness Club. Competed in the California State Geography Bee.</p></div></li><li class="vtl-item edu"><div class="vtl-date">2015–2019</div><div class="vtl-body"><span class="vtl-tag">Education</span><strong>Henry M. Gunn High School</strong><p>High school diploma, GPA 4.00 (weighted 4.44). Math Circle, Zero Robotics, Science Olympiad, and Science Bowl.</p></div></li><li class="vtl-item exp"><div class="vtl-date">Summers 2018 and 2019</div><div class="vtl-body"><span class="vtl-tag">Experience</span><strong>NASA Ames Research Center, Human Systems Integration Division</strong><p>Software intern in the HCI Group. Built an IoT sensor dashboard for a project helping astronauts follow procedures without mission control, then developed features for Playbook, a scheduling app used on NASA analog missions.</p></div></li><li class="vtl-item edu"><div class="vtl-date">2019–2023</div><div class="vtl-body"><span class="vtl-tag">Education</span><strong>California Institute of Technology</strong><p>B.S. in Computer Science (machine learning track) with a minor in Biology, GPA 3.9.</p></div></li><li class="vtl-item exp"><div class="vtl-date">Summers 2020 and 2021</div><div class="vtl-body"><span class="vtl-tag">Experience</span><strong>Pachter Lab, Caltech</strong><p>Summer Undergraduate Research Fellow. Benchmarked cell-barcode error correction methods for single-cell RNA sequencing, then built a workflow to study differential isoform expression in the jellyfish <i>Clytia hemisphaerica</i>.</p></div></li><li class="vtl-item exp"><div class="vtl-date">Summer 2022</div><div class="vtl-body"><span class="vtl-tag">Experience</span><strong>Engelhardt Lab, Gladstone Institutes</strong><p>Summer research intern. Simulated the movement of CAR T cells attacking cancer cells and compared the simulations to real cell tracks.</p></div></li><li class="vtl-item exp"><div class="vtl-date">Summer 2023</div><div class="vtl-body"><span class="vtl-tag">Experience</span><strong>Nuanced Health</strong><p>Computational biology intern on the metabolomics team. Analyzed how mass spectrometry data quality affects downstream results and built a dashboard to guide wet lab decisions.</p></div></li><li class="vtl-item exp"><div class="vtl-date">Fall 2023</div><div class="vtl-body"><span class="vtl-tag">Experience</span><strong>AI startup</strong><p>Full-stack developer (contract), adding features to a desktop app for running large language models locally.</p></div></li><li class="vtl-item edu"><div class="vtl-date">2024–present</div><div class="vtl-body"><span class="vtl-tag">Education</span><strong>Stanford University School of Medicine</strong><p>PhD in Biomedical Data Science (expected 2029), advised by Professor Nima Aghaeepour.</p></div></li></ol>
+  </article>
+  <div class="quote" style="margin-top:28px;border-left:5px solid var(--teal);font-size:1.12rem"><div class="kicker" style="margin-bottom:8px">How it shapes me</div><p style="margin:0">I don't usually spend much time thinking about my condition. It is a part of life that I've learned to work around, not something that defines everything about me.</p><p style="margin:10px 0 0">DMD hasn't affected my intelligence or my personality, so unfortunately I can't blame any of my personality traits on it 😂. And for better or worse, I have all the same emotions and feelings as anyone else. Stephen Hawking once said that even though he couldn't move and had to speak through a computer, "in my mind I am free." I feel the same way.</p></div>
+ </section>
+
+ <section id="interests" class="reveal">
+  <div class="section-head"><div class="kicker">05.1 · Exploring the world</div><h2>Geography, history, and exploring the world</h2><p>Some of my interests have also given me ways to connect with places and experiences even when I haven't been there physically.</p></div>
+  <div class="grid2">
+   <article class="card">
+    <h3>A long-standing interest in geography and history</h3>
+    <p>I've always been really interested in geography and history. In middle school, I even competed in the California State Geography Bee. I've often learned about places in so much detail that I can recognize or talk about them even if I haven't actually traveled there. Sometimes people are surprised by how much I know about a place I've never visited.</p>
+   </article>
+   <article class="card">
+    <h3>Traveling virtually</h3>
+    <p>In a way, I've traveled virtually through atlases, maps, videos, and other ways of exploring the world. So when my friends talk about their travels, I can often relate to the places they're describing, even if I haven't been there myself. I also play GeoGuessr now, although my geography skills have gotten a bit rusty without regular practice.</p>
+    <div class="visual" style="margin-top:16px">
+     <svg viewBox="0 0 520 220" role="img" aria-label="Illustration of an atlas, map, and globe representing virtual exploration">
+      <rect x="18" y="24" width="220" height="166" rx="12" fill="#fff" stroke="#cbd8e8" stroke-width="2"/>
+      <path d="M128 25V190" stroke="#cbd8e8" stroke-width="2"/>
+      <path d="M35 55L105 42L112 158L35 172Z" fill="#e9f3e8" stroke="#8fb89a"/>
+      <path d="M146 45L220 57L220 167L146 154Z" fill="#e7f1fb" stroke="#8eafd3"/>
+      <path d="M43 93L69 76L88 87L103 67M154 82L178 72L202 90L215 80M158 127L182 111L208 129" fill="none" stroke="#65a5a0" stroke-width="3" stroke-linecap="round"/>
+      <path d="M52 141Q73 118 91 139T105 130" fill="none" stroke="#d1a65e" stroke-width="4"/>
+      <circle cx="365" cy="104" r="77" fill="#d9edff" stroke="#4384b8" stroke-width="3"/>
+      <path d="M323 54Q342 65 336 83L351 96L344 117L358 134L347 169M381 32Q366 55 381 73L401 82L394 105L416 122L408 153M291 105Q324 91 351 103T438 101" fill="none" stroke="#398b75" stroke-width="8" stroke-linecap="round"/>
+      <path d="M290 104H440M365 28Q333 104 365 180M365 28Q397 104 365 180" fill="none" stroke="#78a9cf" stroke-width="1.5"/>
+      <path d="M270 186Q365 204 460 186" fill="none" stroke="#b7c9db" stroke-width="3" stroke-linecap="round"/>
+      <g fill="#294967" font-size="12" font-weight="700"><text x="127" y="211" text-anchor="middle">Atlases &amp; maps</text><text x="365" y="211" text-anchor="middle">Exploring places</text></g>
+     </svg>
+    </div>
+   </article>
+  </div>
+ </section>
+
+ <section id="movies" class="reveal">
+  <div class="section-head"><div class="kicker">05.2 · On screen</div><h2>Movies and TV</h2><p>Movies are one of my favorite pastimes, both at home and at the theater with friends. I'm drawn to big stories, built-out worlds, and long-running franchises.</p></div>
+  <div class="grid2" style="margin-bottom:30px">
+   <article class="card mini-list" style="grid-column:1/-1">
+    <h3>Favorite movies</h3>
+    <div class="pillrow" style="margin-top:10px"><span class="pill">Good Will Hunting</span><span class="pill">Apollo 13</span><span class="pill">Oppenheimer</span><span class="pill">Interstellar</span><span class="pill">Inception</span><span class="pill">The Odyssey</span><span class="pill">The Dark Knight</span><span class="pill">Forrest Gump</span><span class="pill">The Irishman</span><span class="pill">The Dictator</span><span class="pill">Airplane!</span></div>
+   </article>
+   <article class="card mini-list">
+    <h3>Movie franchises</h3>
+    <p>I've followed a lot of these series for years, and I enjoy rewatching them and seeing each new installment.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Star Wars</span><span class="pill">Harry Potter</span><span class="pill">The Lord of the Rings</span><span class="pill">Marvel</span><span class="pill">Mission: Impossible</span><span class="pill">James Bond</span><span class="pill">The Matrix</span><span class="pill">The Hobbit</span><span class="pill">Jason Bourne</span><span class="pill">Top Gun</span><span class="pill">The Hunger Games</span><span class="pill">The Godfather</span><span class="pill">The Pink Panther</span></div>
+   </article>
+   <article class="card mini-list">
+    <h3>TV shows</h3>
+    <p>For TV, I watch a mix of sitcoms, dramas, and crime shows. I also like legal dramas, particularly ones based on John Grisham's books.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Game of Thrones</span><span class="pill">Silicon Valley</span><span class="pill">Seinfeld</span><span class="pill">The Big Bang Theory</span><span class="pill">Young Sheldon</span><span class="pill">Friends</span><span class="pill">Person of Interest</span><span class="pill">Bosch</span><span class="pill">The Lincoln Lawyer</span><span class="pill">The Rainmaker</span><span class="pill">Avatar: The Last Airbender</span></div>
+   </article>
+  </div>
+  <h3 class="genre-head">Genres I enjoy</h3>
+  <div class="grid2">
+   <article class="card" style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center">
+    <div><h3>Sci-fi and Christopher Nolan</h3>
+    <p>Science fiction is probably my favorite genre, and Christopher Nolan is one of my favorite directors. I like movies that take a big idea seriously and make you think about it after the credits roll.</p></div>
+    <div class="visual">
+     <svg viewBox="0 0 520 170" role="img" aria-label="Illustration of a film strip">
+      <rect x="10" y="30" width="500" height="110" rx="10" fill="#1b2f4d"/>
+      <g fill="#f7f9fc"><rect x="24" y="38" width="16" height="10" rx="2"/><rect x="64" y="38" width="16" height="10" rx="2"/><rect x="104" y="38" width="16" height="10" rx="2"/><rect x="144" y="38" width="16" height="10" rx="2"/><rect x="184" y="38" width="16" height="10" rx="2"/><rect x="224" y="38" width="16" height="10" rx="2"/><rect x="264" y="38" width="16" height="10" rx="2"/><rect x="304" y="38" width="16" height="10" rx="2"/><rect x="344" y="38" width="16" height="10" rx="2"/><rect x="384" y="38" width="16" height="10" rx="2"/><rect x="424" y="38" width="16" height="10" rx="2"/><rect x="464" y="38" width="16" height="10" rx="2"/>
+      <rect x="24" y="122" width="16" height="10" rx="2"/><rect x="64" y="122" width="16" height="10" rx="2"/><rect x="104" y="122" width="16" height="10" rx="2"/><rect x="144" y="122" width="16" height="10" rx="2"/><rect x="184" y="122" width="16" height="10" rx="2"/><rect x="224" y="122" width="16" height="10" rx="2"/><rect x="264" y="122" width="16" height="10" rx="2"/><rect x="304" y="122" width="16" height="10" rx="2"/><rect x="344" y="122" width="16" height="10" rx="2"/><rect x="384" y="122" width="16" height="10" rx="2"/><rect x="424" y="122" width="16" height="10" rx="2"/><rect x="464" y="122" width="16" height="10" rx="2"/></g>
+      <rect x="28" y="56" width="140" height="58" rx="6" fill="#d9edff"/><circle cx="98" cy="85" r="18" fill="none" stroke="#4384b8" stroke-width="4"/><circle cx="98" cy="85" r="6" fill="#4384b8"/>
+      <rect x="190" y="56" width="140" height="58" rx="6" fill="#f3eefc"/><path d="M230 104L260 64L290 104Z" fill="#7652d6" opacity=".75"/>
+      <rect x="352" y="56" width="140" height="58" rx="6" fill="#fbf3e6"/><g fill="#b97817"><circle cx="390" cy="76" r="3"/><circle cx="440" cy="68" r="2.5"/><circle cx="462" cy="92" r="3"/><circle cx="410" cy="100" r="2"/></g><path d="M380 104Q422 74 470 100" fill="none" stroke="#b97817" stroke-width="3"/>
+     </svg>
+    </div>
+   </article>
+   <article class="card">
+    <h3>Bollywood and South Indian films</h3>
+    <p>I enjoy Bollywood movies from both the classic era and today, especially films with Shah Rukh Khan and Aamir Khan. I also enjoy South Indian films. They're a meaningful connection to India and to my family.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Sholay</span><span class="pill">Jo Jeeta Wohi Sikandar</span><span class="pill">Hera Pheri</span><span class="pill">Lagaan</span><span class="pill">Dil Chahta Hai</span><span class="pill">Dhoom</span><span class="pill">Don</span><span class="pill">3 Idiots</span><span class="pill">Housefull</span><span class="pill">Zindagi Na Milegi Dobara</span><span class="pill">PK</span><span class="pill">Pushpa</span><span class="pill">RRR</span><span class="pill">Jailer</span></div>
+   </article>
+   <article class="card">
+    <h3>Disney and Pixar</h3>
+    <p>I still enjoy Disney and Pixar films. The best ones hold up at any age and are fun to watch with anyone.</p>
+   </article>
+   <article class="card" style="grid-column:1/-1">
+    <h3>Comedy, history, and politics</h3>
+    <p>I enjoy comedy movies when I want something light, and historical movies and shows about politics when I want something with more substance. Those line up with a lot of what I read and watch on YouTube, and I like seeing real events brought to the screen.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Comedy</span><span class="pill">Historical</span><span class="pill">Politics</span></div>
+   </article>
+  </div>
+ </section>
+
+ <section id="books" class="reveal">
+  <div class="section-head"><div class="kicker">05.3 · What I read</div><h2>Books</h2><p>Reading is one of my favorite ways to spend time at home. I gravitate toward long series with rich worlds and clever mysteries.</p></div>
+  <div class="grid2">
+   <article class="card">
+    <h3>Fantasy series</h3>
+    <p>I grew up on fantasy series, and they're still some of my favorite books. I enjoy getting absorbed in a world that builds over several volumes.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Harry Potter</span><span class="pill">Percy Jackson and the Olympians</span><span class="pill">The Inheritance Cycle</span></div>
+   </article>
+   <article class="card">
+    <h3>Mysteries and legal thrillers</h3>
+    <p>I also like a good mystery or courtroom story. Sherlock Holmes is a classic for me, and John Grisham's legal thrillers are a big part of why I enjoy legal dramas on TV too.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Sherlock Holmes</span><span class="pill">John Grisham</span></div>
+   </article>
+  </div>
+ </section>
+
+ <section id="music" class="reveal">
+  <div class="section-head"><div class="kicker">05.4 · What I listen to</div><h2>Music</h2><p>My taste in music is fairly broad, from current pop to classic rock to Bollywood songs across several generations.</p></div>
+  <div class="grid2">
+   <article class="card">
+    <h3>Pop, then and now</h3>
+    <p>I listen to most current pop music, and I also love 2000s music like the Backstreet Boys, Maroon 5, Green Day, and Britney Spears.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Current pop</span><span class="pill">Backstreet Boys</span><span class="pill">Maroon 5</span><span class="pill">Green Day</span><span class="pill">Britney Spears</span></div>
+   </article>
+   <article class="card">
+    <h3>Classic rock and timeless artists</h3>
+    <p>Queen is one of my favorites. I also like classic rock more broadly, along with singers whose music has endured for decades.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">Queen</span><span class="pill">CCR</span><span class="pill">Ozzy Osbourne</span><span class="pill">Billy Joel</span><span class="pill">Neil Diamond</span><span class="pill">Elvis</span><span class="pill">Phil Collins</span></div>
+   </article>
+   <article class="card side-visual" style="grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center">
+    <div><h3>Bollywood songs</h3>
+    <p>I love classic Bollywood songs by Lata Mangeshkar, Kishore Kumar, and Mohammed Rafi, as well as newer hits.</p></div>
+    <div class="visual">
+     <svg viewBox="0 0 520 150" role="img" aria-label="Illustration of music notes and a sound wave">
+      <path d="M20 90Q60 40 100 90T180 90T260 90T340 90T420 90T500 90" fill="none" stroke="#65a5a0" stroke-width="4" stroke-linecap="round"/>
+      <path d="M20 100Q60 130 100 100T180 100T260 100T340 100T420 100T500 100" fill="none" stroke="#cbd8e8" stroke-width="3" stroke-linecap="round"/>
+      <g fill="#1756a2"><ellipse cx="130" cy="58" rx="11" ry="8"/><rect x="139" y="16" width="4" height="42"/><ellipse cx="370" cy="52" rx="11" ry="8"/><ellipse cx="410" cy="44" rx="11" ry="8"/><rect x="379" y="12" width="4" height="40"/><rect x="419" y="6" width="4" height="38"/><rect x="379" y="6" width="44" height="8"/></g>
+      <g fill="#294967" font-size="12" font-weight="700"><text x="130" y="140" text-anchor="middle">Classics</text><text x="390" y="140" text-anchor="middle">Current hits</text></g>
+     </svg>
+    </div>
+   </article>
+  </div>
+ </section>
+
+ <section id="youtube" class="reveal">
+  <div class="section-head"><div class="kicker">05.5 · Nerd stuff</div><h2>YouTube and learning for fun</h2><p>I spend much of my downtime on YouTube. It's one of the main ways I keep learning, and I watch a wide range of topics.</p></div>
+  <div class="grid2">
+   <article class="card">
+    <h3>AI, physics, science, and math</h3>
+    <p>A big share of what I watch is about AI, physics, science, and math. Some of it connects to my research, and some I simply find fascinating. Good explainer videos let me go deep on a subject from home.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">AI</span><span class="pill">Physics</span><span class="pill">Science</span><span class="pill">Math</span></div>
+    <div class="visual" style="margin-top:16px">
+     <svg viewBox="0 0 520 200" role="img" aria-label="Illustration of a video player with topic thumbnails">
+      <rect x="20" y="18" width="300" height="164" rx="14" fill="#fff" stroke="#cbd8e8" stroke-width="2"/>
+      <rect x="34" y="32" width="272" height="112" rx="10" fill="#e7f1fb"/>
+      <circle cx="170" cy="88" r="28" fill="#d94e55"/>
+      <path d="M161 74L186 88L161 102Z" fill="#fff"/>
+      <rect x="34" y="156" width="272" height="6" rx="3" fill="#e3eaf3"/><rect x="34" y="156" width="118" height="6" rx="3" fill="#d94e55"/>
+      <g font-size="13" font-weight="700" fill="#294967">
+       <rect x="346" y="22" width="154" height="34" rx="9" fill="#eaf2ff"/><text x="362" y="44">∑  Math</text>
+       <rect x="346" y="64" width="154" height="34" rx="9" fill="#eaf7f6"/><text x="362" y="86">⚛  Physics</text>
+       <rect x="346" y="106" width="154" height="34" rx="9" fill="#f3eefc"/><text x="362" y="128">◈  AI</text>
+       <rect x="346" y="148" width="154" height="34" rx="9" fill="#fbf3e6"/><text x="362" y="170">⚗  Science</text>
+      </g>
+     </svg>
+    </div>
+   </article>
+   <article class="card">
+    <h3>News, politics, history, and more</h3>
+    <p>I also use YouTube to keep up with news and politics, and to explore history and geography, which tie back to my long-standing interest in places. I watch plenty of music and comedy too, especially comedy and satire about news and politics from Jon Stewart, John Oliver, Trevor Noah, and the Daily Show team.</p>
+    <div class="pillrow" style="margin-top:14px"><span class="pill">News</span><span class="pill">Politics</span><span class="pill">History</span><span class="pill">Geography</span><span class="pill">Music</span><span class="pill">Comedy</span><span class="pill">Political satire</span></div>
+   </article>
+  </div>
+ </section>
+
+ <section id="perspective" class="reveal">
+  <div class="section-head"><div class="kicker">06 · Perspective</div><h2>How I think about it</h2></div>
+  <div class="quote">“I genuinely don't feel bad about it; it's just the reality of my life. But I do think it's important for people to understand what it actually involves, rather than making assumptions based on what they see.”</div>
+  <p class="muted" style="margin-top:18px">DMD shapes some of the logistics of my life and has real physical and medical consequences. At the same time, it doesn't tell you what I enjoy, what I value, what I can contribute, or what kind of life I want to build.</p>
+ </section>
+
+ <section id="resources" class="reveal">
+  <div class="section-head"><div class="kicker">07 · Further reading</div><h2>Reliable places to learn more</h2><p>These resources provide additional medical and scientific context. They complement my personal account; they don't replace it.</p></div>
+  <div class="resources">
+   <a class="resource" href="https://www.mda.org/disease/duchenne-muscular-dystrophy" target="_blank" rel="noopener"><strong>Muscular Dystrophy Association — DMD</strong><span>Overview of causes, symptoms, care, and research ↗</span></a>
+   <a class="resource" href="https://medlineplus.gov/genetics/condition/duchenne-and-becker-muscular-dystrophy/" target="_blank" rel="noopener"><strong>MedlinePlus Genetics</strong><span>How DMD gene variants affect dystrophin ↗</span></a>
+   <a class="resource" href="https://medlineplus.gov/genetics/gene/dmd/" target="_blank" rel="noopener"><strong>MedlinePlus — DMD gene</strong><span>Normal gene function and related conditions ↗</span></a>
+   <a class="resource" href="https://www.ncbi.nlm.nih.gov/books/NBK1119/" target="_blank" rel="noopener"><strong>GeneReviews — Dystrophinopathies</strong><span>Clinical and genetic reference chapter ↗</span></a>
+   <a class="resource" href="https://www.mda.org/disease/duchenne-muscular-dystrophy/medical-management" target="_blank" rel="noopener"><strong>MDA — Medical management</strong><span>Cardiac, respiratory, and multidisciplinary care ↗</span></a>
+   <a class="resource" href="https://www.genome.gov/Genetic-Disorders/Duchenne-Muscular-Dystrophy" target="_blank" rel="noopener"><strong>National Human Genome Research Institute</strong><span>Accessible overview of DMD genetics ↗</span></a>
+  </div>
+  <p class="small" style="margin-top:18px;color:var(--muted)">This page is an educational and personal explainer, not medical advice. The isoform diagram is simplified; exact transcript consequences should be interpreted with a genetics professional and the specific variant report.</p>
+ </section>
+</main>
+<footer><div class="wrap footer-inner"><div><strong>DMD, Explained</strong><div class="small">A personal guide to the science and lived experience of Duchenne muscular dystrophy.</div></div><div class="small">Made to be explored, shared, and understood.</div></div></footer>
+<script>
+const details={
+ dp427:"<strong>Dp427 — affected.</strong> This full-length isoform is expressed in skeletal muscle, heart, and selected brain regions. In the model shown, deleting exons 45–50 disrupts the coding sequence, changes the reading frame, and is expected to lead to a premature stop downstream.",
+ dp260:"<strong>Dp260 — affected in this simplified model.</strong> Its promoter is downstream of the Dp427 promoter but upstream of the exon 45–50 deletion, so the deletion can disrupt its coding sequence too. Dp260 is especially associated with the retina.",
+ dp140:"<strong>Dp140 — potentially preserved.</strong> Its internal promoter lies around intron 44, and exons 45–50 are part of its 5′ untranslated region in the simplified model. Its downstream coding sequence may therefore remain available.",
+ dp116:"<strong>Dp116 — likely preserved.</strong> This shorter isoform begins farther downstream of the exon 45–50 deletion in the diagram, so the deleted region is not part of its coding sequence.",
+ dp71:"<strong>Dp71 — likely preserved.</strong> Its promoter and coding sequence are farther downstream, outside the deleted segment shown here."
+};
+const rows=[...document.querySelectorAll(".iso-row")];
+function selectRow(row){rows.forEach(r=>r.classList.toggle("selected",r===row));document.getElementById("isoInfo").innerHTML=details[row.dataset.key]}
+rows.forEach(r=>{r.addEventListener("click",()=>selectRow(r));r.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selectRow(r)}})});
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.08});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+</script>
+</body></html>
